@@ -40,8 +40,8 @@ def test_converting_fit_with_power_to_timeseries():
 
 
 def test_converting_fit_with_gear_changes_and_respiration():
-    p = file_path_of_test_asset("2025-07-24-17-55-12.fit", in_dir="fit")
-    if not path.exists(p):
+    p = file_path_of_test_asset("2025-07-24-17-55-12.fit", in_dir="fit", allow_missing=True)
+    if p is None:
         pytest.skip("Private test asset not present")
 
     ts = fit.load_timeseries(p,units)

@@ -1,5 +1,6 @@
 import inspect
 from pathlib import Path
+from typing import Optional
 
 import gpxpy
 
@@ -164,7 +165,7 @@ def test_discussion_85_speed_elevation_from_gpx():
     assert entries[2].speed == units.Quantity(0.0, units.mps)
 
 
-def file_path_of_test_asset(name, in_dir="gpx") -> Path:
+def file_path_of_test_asset(name, in_dir="gpx", allow_missing=False) -> Optional[Path]:
     sourcefile = Path(inspect.getfile(file_path_of_test_asset))
 
     meta_dir = sourcefile.parents[0].joinpath(in_dir)
@@ -172,7 +173,8 @@ def file_path_of_test_asset(name, in_dir="gpx") -> Path:
     the_path = Path(meta_dir) / name
 
     if not the_path.exists():
-        raise IOError(f"Test file {the_path} does not exist")
+        if not allow_missing:
+            raise IOError(f"Test file {the_path} does not exist")
 
     return the_path
 
