@@ -204,6 +204,7 @@ https://github.com/JuanIrache/gopro-telemetry
 ## Latest Changes
 
 If you find any issues with new releases, please discuss in [GitHub Discussions](https://github.com/time4tea/gopro-dashboard-overlay/discussions)
+- 0.128.0 [Enhancement] add layout default compatible ith DJI 2.5k resolution. Thanks to [@DonkeyShine](https://github.com/DonkeyShine) for suggestion.
 - 0.127.0 [Enhancement] Now support _respiration_ , _front_gear_num_ and _rear_gear_num fields in FIT files. Improved support for using DJI videos as files to be overlaid. 
   - Thanks to [@prebbz](https://github.com/prebbz) [@DonkeyShine](https://github.com/DonkeyShine) 
 - 0.126.0 [Enhancement] New Motorspeed widgets - "msi" & "msi2" - See examples [docs/xml/examples/07-motor-speed-indicator/README.md](docs/xml/examples/07-motor-speed-indicator/README.md) - Thanks to [@JimmyS83](https://github.com/JimmyS83) for contributing.
