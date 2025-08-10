@@ -90,7 +90,7 @@ test-distribution: test-distribution-install test-distribution-test
 
 .PHONY: ensure-not-released
 ensure-not-released:
-	build-scripts/ensure-version-not-released.sh $(CURRENT_VERSION)
+	$(BIN)/python3 build-scripts/ensure-version-not-released.py $(CURRENT_VERSION)
 
 
 .PHONY: ensure-pristine
