@@ -3,7 +3,7 @@ BIN=venv/bin
 
 default: test
 
-PYTHONVERSION ?=3.11
+PYTHONVERSION ?=3.12
 
 PYTHON=python$(PYTHONVERSION)
 
