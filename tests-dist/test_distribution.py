@@ -68,7 +68,7 @@ def test_init_pys_are_in_right_subfolders():
     assert len(expected_subpackages) > 0
     for p in expected_subpackages:
         assert os.path.exists(
-            os.path.join(distribution, "lib", "python3.11", "site-packages", "gopro_overlay", p, "__init__.py"))
+            os.path.join(distribution, "lib", "python3.12", "site-packages", "gopro_overlay", p, "__init__.py"))
 
 
 def run_from_venv(cmd):
