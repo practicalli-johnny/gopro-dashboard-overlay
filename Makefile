@@ -112,7 +112,7 @@ doc: doc-examples doc-map-examples
 
 .PHONY: publish
 publish: ensure-not-released ensure-pristine clean test-distribution
-	$(BIN)/pip install twine
+	$(BIN)/pip install --upgrade setuptools wheel twine
 	$(BIN)/twine check dist/*
 	$(BIN)/twine upload --skip-existing --non-interactive --repository pypi dist/*
 	git tag v$(CURRENT_VERSION)
