@@ -33,6 +33,11 @@ builtin_profiles = {
     "mac": {
         "input": ["-hwaccel", "videotoolbox"],
         "output": ["-vcodec", "h264_videotoolbox", "-q:v", "60"]
+    },
+    "qsv": {
+        "input": ["-init_hw_device", "qsv=hw", "-hwaccel", "qsv", "-hwaccel_output_format", "qsv"],
+        "filter": "[0:v]hwupload=extra_hw_frames=64[main_hw];[1:v]hwupload=extra_hw_frames=64,format=qsv[overlay_hw];[main_hw][overlay_hw]overlay_qsv=x=0:y=0,hwdownload,format=nv12",
+        "output": ["-vcodec", "hevc_qsv", "-global_quality", "25", "-c:a", "copy"]
     }
 }
 
