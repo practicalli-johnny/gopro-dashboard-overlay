@@ -9,11 +9,12 @@ PYTHON=python$(PYTHONVERSION)
 
 .PHONY: clean
 clean:
-	rm -rf dist
+	rm -rf build dist *.egg-info
 
 .PHONY: dist
 dist:
-	$(BIN)/python setup.py sdist
+	$(BIN)/pip install --upgrade setuptools wheel twine build
+	$(BIN)/python -m build
 
 .PHONY: test
 test:
