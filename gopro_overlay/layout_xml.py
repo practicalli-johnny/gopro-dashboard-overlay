@@ -294,6 +294,10 @@ def metric_accessor_from(name: str) -> Callable[[Entry], Optional[pint.Quantity]
         "gps-packet-index": lambda e: e.packet_index,
         "gps-lock": lambda e: e.gpslock,
 
+        "respiration": lambda e: e.respiration,
+        "gear.front": lambda e: e.gear_front,
+        "gear.rear": lambda e: e.gear_rear,
+
         "accl.x": lambda e: e.accl.x if e.accl else None,
         "accl.y": lambda e: e.accl.y if e.accl else None,
         "accl.z": lambda e: e.accl.z if e.accl else None,

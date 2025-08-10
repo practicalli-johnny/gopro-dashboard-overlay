@@ -1,4 +1,8 @@
+import datetime
+from os import path
+
 import pytest
+from pint.registry import Quantity
 
 from gopro_overlay import fit
 from gopro_overlay.units import units
@@ -33,3 +37,26 @@ def test_converting_fit_with_power_to_timeseries():
     assert item.power == units.Quantity(80, units.watt)
     assert item.odo == units.Quantity(114.96, units.m)
     assert item.gpsfix == 3
+
+
+def test_converting_fit_with_gear_changes_and_respiration():
+    p = file_path_of_test_asset("2025-07-24-17-55-12.fit", in_dir="fit")
+    if not path.exists(p):
+        pytest.skip("Private test asset not present")
+
+    ts = fit.load_timeseries(p,units)
+
+    entry_with_event_following = ts.get(datetime.datetime(2025, 7, 24, 15, 56, 33,tzinfo=datetime.timezone.utc))
+    assert(entry_with_event_following.items['gear_front']) == Quantity(2)
+    assert(entry_with_event_following.items['gear_rear']) == Quantity(6)
+
+    entry_picking_up_previous_data = ts.get(datetime.datetime(2025, 7, 24, 16, 56, 38,tzinfo=datetime.timezone.utc))
+    assert(entry_picking_up_previous_data.items['gear_front']) == Quantity(2)
+    assert(entry_picking_up_previous_data.items['gear_rear']) == Quantity(5)
+
+    entry_with_event_following = ts.get(datetime.datetime(2025, 7, 24, 16, 56, 39,tzinfo=datetime.timezone.utc))
+    assert(entry_with_event_following.items['gear_front']) == Quantity(2)
+    assert(entry_with_event_following.items['gear_rear']) == Quantity(6)
+
+    entry_with_respiration = ts.get(datetime.datetime(2025, 7, 24, 15, 55, 25,tzinfo=datetime.timezone.utc))
+    assert(entry_with_respiration.items['respiration']) == Quantity(21.47, units.brpm)
