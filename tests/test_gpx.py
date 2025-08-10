@@ -175,6 +175,8 @@ def file_path_of_test_asset(name, in_dir="gpx", allow_missing=False) -> Optional
     if not the_path.exists():
         if not allow_missing:
             raise IOError(f"Test file {the_path} does not exist")
+        else:
+            return None
 
     return the_path
 
