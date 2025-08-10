@@ -78,7 +78,7 @@ class FFMPEGGoPro:
 
         ffprobe_json = json.loads(ffprobe_output)
 
-        video_selector = lambda s: s["codec_type"] == "video"
+        video_selector = lambda s: s["codec_type"] == "video" and s["disposition"]["default"] == 1
         audio_selector = lambda s: s["codec_type"] == "audio"
         data_selector = lambda s: s["codec_type"] == "data" and s["codec_tag_string"] == "gpmd"
 

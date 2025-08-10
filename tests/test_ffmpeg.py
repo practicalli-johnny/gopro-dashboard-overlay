@@ -18,6 +18,7 @@ from tests.test_timeseries import datetime_of
 
 ffprobe_output = (Path(__file__).parent / "test_ffmpeg_ffprobe_output.json").read_text()
 
+ffprobe_output_dji = (Path(__file__).parent / "test_ffmpeg_ffprobe_output_dji.json").read_text()
 
 @dataclasses.dataclass(frozen=True)
 class Invocation:
@@ -136,6 +137,23 @@ def test_parsing_stream_information():
     assert streams.data.frame_duration == 1001
 
     assert streams.file.length == 9876
+
+def test_parsing_stream_information_from_dji():
+    def stat(file):
+        return stat_result([000, 1234, 123, 1, 1000, 1000, 9876, 10, 20, 30])
+
+    exe = FFMPEG(invoke_fn=fake_invoke(
+        Invocation(
+            args=["ffprobe", "-hide_banner", "-print_format", "json", "-show_streams", "whatever"],
+            stdout=ffprobe_output_dji
+        ),
+    ))
+
+    streams = FFMPEGGoPro(exe).find_recording(Path("whatever"), stat=stat)
+
+    assert streams.video.stream == 0
+    assert streams.audio.stream == 1
+    assert streams.data is None
 
 
 class FakePopen:
