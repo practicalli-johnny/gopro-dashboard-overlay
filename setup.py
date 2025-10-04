@@ -7,7 +7,7 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README-PYPI.md").read_text()
 
 requires = [
-    "pillow==10.1.0",
+    "pillow==11.3.0",
     "pint==0.22",
     "geotiler==0.15",
     "gpxpy==1.6.1",
